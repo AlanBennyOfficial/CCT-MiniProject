@@ -1,4 +1,4 @@
-# C-MiniProject
-A mini project build using the C programming language.
+# Py-MiniProject
+A mini project build using Python, HTML and CSS.
 
 > By: Alan Benny, Aryan Sandeep Dhuri, Christin Raju

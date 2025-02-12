@@ -69,79 +69,28 @@
             color: white;
         }
     </style>
+    <!-- Load Brython -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.9.5/brython.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.9.5/brython_stdlib.js"></script>
 </head>
-<body>
+<body onload="brython()">
     <div class="container">
         <h1>Tic Tac Toe</h1>
         <div class="board">
-            <div class="cell" id="cell-0-0" onclick="makeMove(0, 0)"></div>
-            <div class="cell" id="cell-0-1" onclick="makeMove(0, 1)"></div>
-            <div class="cell" id="cell-0-2" onclick="makeMove(0, 2)"></div>
-            <div class="cell" id="cell-1-0" onclick="makeMove(1, 0)"></div>
-            <div class="cell" id="cell-1-1" onclick="makeMove(1, 1)"></div>
-            <div class="cell" id="cell-1-2" onclick="makeMove(1, 2)"></div>
-            <div class="cell" id="cell-2-0" onclick="makeMove(2, 0)"></div>
-            <div class="cell" id="cell-2-1" onclick="makeMove(2, 1)"></div>
-            <div class="cell" id="cell-2-2" onclick="makeMove(2, 2)"></div>
+            <div class="cell" id="cell-0-0"></div>
+            <div class="cell" id="cell-0-1"></div>
+            <div class="cell" id="cell-0-2"></div>
+            <div class="cell" id="cell-1-0"></div>
+            <div class="cell" id="cell-1-1"></div>
+            <div class="cell" id="cell-1-2"></div>
+            <div class="cell" id="cell-2-0"></div>
+            <div class="cell" id="cell-2-1"></div>
+            <div class="cell" id="cell-2-2"></div>
         </div>
-        <button onclick="resetGame()">Reset Game</button>
+        <button>Reset Game</button>
     </div>
 
-    <script>
-        let currentPlayer = 'X';
-        let board = [['', '', ''], ['', '', ''], ['', '', '']];
-        let gameOver = false;
-
-        function makeMove(row, col) {
-            if (gameOver || board[row][col] !== '') return; // Ignore if game over or cell already filled
-
-            board[row][col] = currentPlayer;
-            document.getElementById(`cell-${row}-${col}`).innerText = currentPlayer;
-
-            if (checkWinner()) {
-                highlightWinner();
-                alert(currentPlayer + ' Wins!');
-                gameOver = true;
-                return;
-            }
-
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        }
-
-        function checkWinner() {
-            // Check rows, columns, and diagonals
-            for (let i = 0; i < 3; i++) {
-                if (board[i][0] && board[i][0] === board[i][1] && board[i][1] === board[i][2]) return [i, 0, i, 1, i, 2];
-                if (board[0][i] && board[0][i] === board[1][i] && board[1][i] === board[2][i]) return [0, i, 1, i, 2, i];
-            }
-
-            if (board[0][0] && board[0][0] === board[1][1] && board[1][1] === board[2][2]) return [0, 0, 1, 1, 2, 2];
-            if (board[0][2] && board[0][2] === board[1][1] && board[1][1] === board[2][0]) return [0, 2, 1, 1, 2, 0];
-
-            return false;
-        }
-
-        function highlightWinner() {
-            const winningLine = checkWinner();
-            if (winningLine) {
-                for (let i = 0; i < winningLine.length; i += 2) {
-                    const row = winningLine[i];
-                    const col = winningLine[i + 1];
-                    document.getElementById(`cell-${row}-${col}`).classList.add('winner');
-                }
-            }
-        }
-
-        function resetGame() {
-            board = [['', '', ''], ['', '', ''], ['', '', '']];
-            gameOver = false;
-            currentPlayer = 'X';
-            let cells = document.querySelectorAll('.cell');
-            cells.forEach(cell => {
-                cell.innerText = '';
-                cell.classList.remove('winner');
-            });
-        }
-    </script>
+    <!-- Include the Python game logic -->
+    <script type="text/python" src="main.py"></script>
 </body>
 </html>

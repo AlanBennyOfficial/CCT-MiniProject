@@ -1,4 +1,4 @@
-<h1 align="center"> Py-MiniProject </h1>
+<h1 align="center"> CCT-MiniProject </h1>
   
 <div align="center"> A mini project build using Python, HTML and CSS. </div> <br></br>
 

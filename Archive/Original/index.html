@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+        <link rel="stylesheet" href="styles.css">
+    <!-- Load Brython -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.9.5/brython.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.9.5/brython_stdlib.js"></script>
+</head>
+<body onload="brython()">
+    <div class="container">
+        <h1>Tic Tac Toe</h1>
+        <div class="board">
+            <div class="cell" id="cell-0-0"></div>
+            <div class="cell" id="cell-0-1"></div>
+            <div class="cell" id="cell-0-2"></div>
+            <div class="cell" id="cell-1-0"></div>
+            <div class="cell" id="cell-1-1"></div>
+            <div class="cell" id="cell-1-2"></div>
+            <div class="cell" id="cell-2-0"></div>
+            <div class="cell" id="cell-2-1"></div>
+            <div class="cell" id="cell-2-2"></div>
+        </div>
+        <button>Reset Game</button>
+    </div>
+
+    <!-- Linking Brython Python with HTML  -->
+    <script type="text/python" src="main.py"></script>
+</body>
+</html>

@@ -105,7 +105,7 @@ h1 {
   color: white;
 }
 
-/* From Uiverse.io by 00Kubi */
+/* Theme Switch */
 .theme-switch {
   --toggle-size: 30px;
   /* the size is adjusted using font-size,
@@ -114,7 +114,7 @@ h1 {
   --container-width: 5.625em;
   --container-height: 2.5em;
   --container-radius: 6.25em;
-  /* radius 0 - minecraft mode :) */
+  /* radius 0 - minecraft mode */
   --container-light-bg: #3d7eae;
   --container-night-bg: #1d1f2c;
   --circle-container-diameter: 3.375em;

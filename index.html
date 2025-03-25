@@ -73,6 +73,11 @@
                   <label for="name2">Player O's Name:</label>
                   <input type="text" name="name2" id="name2" maxlength="15" required>
                 </p>
+                <!-- Centering Total Games field -->
+                <p class="player-name" style="grid-column: 1 / -1; text-align: center;">
+                  <label for="totalGames">Total Number of Games:</label>
+                  <input type="number" name="totalGames" id="totalGames" min="1" max="10" required style="display: block; margin: 0 auto;">
+                </p>
                 <button type="submit">Confirm</button>
               </form>
             </div>
@@ -295,7 +300,40 @@
                     </div>
                   </label>
                 </header>
-            <h1>Tic Tac Toe</h1>
+        <h1>Tic Tac Toe</h1><br
+            <!-- From Uiverse.io by sofiapetushok --> 
+        <div class="card">
+            <div data-status="inprogress" class="teams">
+            <span class="team-info team-home">
+              <span class="team-info-container">
+                <span id="scoreXName" class="team-name-info">Player X</span>
+              </span>
+            </span>
+            <span class="event-scoreboard">
+                <span class="event-score-container">
+                <span class="current-time-container">
+                    <span class="event-current-time">
+                    </span>
+                    <span class="progress-dots" data-progress="1S">
+                    <span class="load"></span>
+                    </span>
+                </span>
+                <span class="score-container">
+                    <span class="score-home">0</span>
+                    <span class="custom-sep">-</span>
+                    <span class="score-away">0</span>
+                </span>
+                </span>
+            </span>
+            <span class="team-info team-away">
+              <span class="team-info-container">
+                <span id="scoreOName" class="team-name-info">Player O</span>
+              </span>
+            </span>
+            </div>
+        </div>
+  
+            
             <div class="board">
                 <div class="cell" id="cell-0-0" data-position="0"></div>
                 <div class="cell" id="cell-0-1" data-position="1"></div>
@@ -307,7 +345,7 @@
                 <div class="cell" id="cell-2-1" data-position="7"></div>
                 <div class="cell" id="cell-2-2" data-position="8"></div>
             </div>
-            <button onclick="resetGame()">Reset Game</button>
+            <button id="resetBtn">Reset Game</button>
         </div>
     </div>
 
@@ -324,23 +362,31 @@
     </style>
     <script>
         function Confirm(event) {
-            event.preventDefault(); // Prevent form submission.
-    // Hide the player setup screen and show the loading screen.
+            event.preventDefault();
+            // Get the values from the player setup fields:
+            const name1 = document.getElementById("name1").value || "Player X";
+            const name2 = document.getElementById("name2").value || "Player O";
+            const totalGames = parseInt(document.getElementById("totalGames").value, 10) || 1;
+            
+            // Persist the player names for the duration of the tournament
+            window.name1 = name1;
+            window.name2 = name2;
+            window.totalGames = totalGames;
+            
+            // Update scoreboard team names: remove the score next to the username
+            document.getElementById("scoreXName").textContent = name1;
+            document.getElementById("scoreOName").textContent = name2;
+            
             // Hide the player setup screen and show the loading screen.
-      document.getElementById("playerSetupScreen").style.display = "none";
-      document.getElementById("loadingScreen").style.display = "block";
-      
-      // After 2 seconds, hide the loading screen and show the game screen.
-      setTimeout(() => {
-        document.getElementById("loadingScreen").style.display = "none";
-        // Here you can show your actual game board.
-        document.getElementById("mainGameScreen").style.display = "block";
-      }, 5000);
-    }
-      function resetGame(){
-        // Reset game state; here we simply reload the page
-        window.location.reload();
-      }
+            document.getElementById("playerSetupScreen").style.display = "none";
+            document.getElementById("loadingScreen").style.display = "block";
+              
+            // After 5 seconds, hide the loading screen and show the game screen.
+            setTimeout(() => {
+              document.getElementById("loadingScreen").style.display = "none";
+              document.getElementById("mainGameScreen").style.display = "block";
+            }, 5000);
+        }
     </script>
 </body>
 </html>

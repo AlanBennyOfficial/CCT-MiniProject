@@ -1,4 +1,5 @@
 from browser import document, alert, window
+import json  # For JSON serialization
 
 currentPlayer = 'X'
 board = [['', '', ''], ['', '', ''], ['', '', '']]
@@ -16,6 +17,35 @@ def update_scoreboard():
     # Update live score display in the scoreboard container
     document.select("span.score-home")[0].textContent = str(winsX)
     document.select("span.score-away")[0].textContent = str(winsO)
+
+def update_hall_of_fame(winnerName, loserName):
+    # Retrieve existing records from localStorage, if any
+    records_json = window.localStorage.getItem("hallOfFame")
+    records = json.loads(records_json) if records_json else {}
+    for name in [winnerName, loserName]:
+        if name not in records:
+            records[name] = {"wins": 0, "losses": 0}
+    records[winnerName]["wins"] += 1
+    records[loserName]["losses"] += 1
+    # Sort and keep top 5 based on (wins - losses)
+    sorted_records = sorted(records.items(), key=lambda x: (x[1]["wins"] - x[1]["losses"]), reverse=True)
+    top5 = dict(sorted_records[:5])
+    window.localStorage.setItem("hallOfFame", json.dumps(top5))
+    return top5
+
+def display_hall_of_fame():
+    hallDiv = document["hallOfFame"]
+    records_json = window.localStorage.getItem("hallOfFame")
+    records = json.loads(records_json) if records_json else {}
+    sorted_records = sorted(records.items(), key=lambda x: (x[1]["wins"] - x[1]["losses"]), reverse=True)
+    # Get top 3
+    top3 = sorted_records[:3]
+    html = "<h2>Hall Of Fame</h2><ol>"
+    for player, stats in top3:
+        diff = stats["wins"] - stats["losses"]
+        html += f"<li>{player}: {stats['wins']} wins, {stats['losses']} losses (Diff: {diff})</li>"
+    html += "</ol>"
+    hallDiv.innerHTML = html
 
 def make_move(ev):
     global currentPlayer, gameOver, winsX, winsO, gamesPlayed
@@ -42,14 +72,18 @@ def make_move(ev):
         if gamesPlayed >= window.totalGames:
             if winsX > winsO:
                 alert(f"Tournament Over! {window.name1} wins the tournament!")
+                update_hall_of_fame(window.name1, window.name2)
             elif winsO > winsX:
                 alert(f"Tournament Over! {window.name2} wins the tournament!")
+                update_hall_of_fame(window.name2, window.name1)
             else:
                 alert("Tournament Over! It's a tie!")
+            # Display the hall of fame at game over
+            document.getElementById("hallOfFame").style.display = "block"
+            display_hall_of_fame()
             gameOver = True
         else:
             gameOver = True
-            # Clear board for next round after 2 seconds delay
             window.setTimeout(reset_round, 2000)
         return
 

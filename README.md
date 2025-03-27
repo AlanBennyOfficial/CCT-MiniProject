@@ -1,6 +1,6 @@
 <h1 align="center"> CCT-MiniProject </h1>
   
-<div align="center"> A mini project build using Python, HTML and CSS. </div> <br></br>
+<div align="center"> A mini project build using Python, HTML, CSS and JavaScript. </div> <br></br>
 
 By: **Alan** **Benny**, **Aryan** **Sandeep** **Dhuri**, **Christin** **Raju** <br></br>
 
